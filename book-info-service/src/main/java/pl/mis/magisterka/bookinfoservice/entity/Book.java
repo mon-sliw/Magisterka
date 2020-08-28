@@ -24,12 +24,4 @@ public class Book {
     private String epoch;
 
     private String genre;
-
-    public void copy( Book otherBook) {
-        setTitle(otherBook.getTitle());
-        setAuthor(otherBook.getAuthor());
-        setKind(otherBook.getKind());
-        setEpoch(otherBook.getEpoch());
-        setGenre(otherBook.getGenre());
-    }
 }

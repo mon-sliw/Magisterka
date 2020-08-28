@@ -57,12 +57,11 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book editBook(Long bookId, Book newBook) {
-        Book existingBook = bookRepository.findById(bookId).orElse(null);
-        if (existingBook != null) {
-            existingBook.copy(newBook);
-            bookRepository.save(existingBook);
+        if (bookRepository.existsById(bookId)) {
+            newBook.setId(bookId);
+            return bookRepository.save(newBook);
         }
-        return existingBook;
+        return null;
     }
 
     @Override
