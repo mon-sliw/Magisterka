@@ -1,0 +1,20 @@
+package pl.mis.magisterka.searchservice.controller;
+
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import pl.mis.magisterka.searchservice.entity.SearchResponse;
+import pl.mis.magisterka.searchservice.service.SearchService;
+
+@AllArgsConstructor
+@RestController
+@RequestMapping("/search")
+public class SearchController {
+
+    SearchService searchService;
+
+    @PostMapping("/user-id/{userId}")
+    public ResponseEntity<SearchResponse> getBooksBySearchString(@PathVariable Long userId, @RequestBody String searchString) {
+        return ResponseEntity.ok(searchService.getBooksBySearchString(userId, searchString));
+    }
+}
