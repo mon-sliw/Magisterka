@@ -59,4 +59,10 @@ public class RatingController {
         return ResponseEntity.ok(updatedRating);
     }
 
+    @GetMapping("/init")
+    public ResponseEntity<Void> initDB(){
+        if (ratingService.initDB())
+            return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).build();
+    }
 }

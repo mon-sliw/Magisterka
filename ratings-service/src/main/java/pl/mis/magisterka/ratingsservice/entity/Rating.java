@@ -13,13 +13,17 @@ public class Rating {
 
     @Id
     private Long userId;
-
     @Id
     private Long bookId;
 
     private Integer rating;
 
-    public void copy(Rating newRating) {
-        this.rating = newRating.getRating();
+    public Rating() {
+    }
+
+    public Rating(long userId, long bookId, int rating) {
+        this.userId = userId;
+        this.bookId = bookId;
+        this.rating = rating;
     }
 }

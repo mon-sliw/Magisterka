@@ -20,4 +20,5 @@ public interface RatingService {
 
     Rating editRating(RatingId id, Rating newRating);
 
+    boolean initDB();
 }

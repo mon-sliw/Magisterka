@@ -49,11 +49,29 @@ public class RatingServiceImpl implements RatingService {
 
     @Override
     public Rating editRating(RatingId id, Rating newRating) {
-        Rating existingRating = ratingRepository.findById(id).orElse(null);
-        if (existingRating != null) {
-            existingRating.copy(newRating);
-            ratingRepository.save(existingRating);
+        if (ratingRepository.existsById(id)) {
+            newRating.setBookId(id.getBookId());
+            newRating.setUserId(id.getUserId());
+            return ratingRepository.save(newRating);
         }
-        return existingRating;
+        return null;
+    }
+
+    @Override
+    public boolean initDB() {
+        try {
+            List<Rating> ratings = new ArrayList<>();
+            for (int i = 0; i < 10000; i++) {
+                long userId = Math.round(Math.random() * 50 + 1);
+                long bookId = Math.round(Math.random() * 5812 + 1);
+                int rating = (int) (Math.random() * 5 + 1);
+                ratings.add(new Rating(userId, bookId, rating));
+            }
+            ratingRepository.saveAll(ratings);
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 }
