@@ -43,7 +43,7 @@ public class SearchServiceImpl implements SearchService {
 
         bookList.forEach(book -> book.setRating(ratingsMap.getOrDefault(book.getId(), new Rating()).getRating()));
 
-        return new SearchResponse(user, bookList);
+        return new SearchResponse(user, bookList, searchString);
     }
 }
 

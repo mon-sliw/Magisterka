@@ -13,4 +13,6 @@ public class SearchResponse {
 
     List<Book> results;
 
+    String search;
+
 }
