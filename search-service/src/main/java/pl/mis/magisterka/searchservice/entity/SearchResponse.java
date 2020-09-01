@@ -11,8 +11,7 @@ public class SearchResponse {
 
     User user;
 
-    List<Book> results;
-
     String search;
 
+    List<Book> results;
 }

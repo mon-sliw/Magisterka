@@ -13,8 +13,8 @@ public class SearchController {
 
     SearchService searchService;
 
-    @PostMapping("/user-id/{userId}")
-    public ResponseEntity<SearchResponse> getBooksBySearchString(@PathVariable Long userId, @RequestBody String searchString) {
+    @GetMapping("/user-id/{userId}")
+    public ResponseEntity<SearchResponse> getBooksBySearchString(@PathVariable Long userId, @RequestParam("string") String searchString) {
         return ResponseEntity.ok(searchService.getBooksBySearchString(userId, searchString));
     }
 }

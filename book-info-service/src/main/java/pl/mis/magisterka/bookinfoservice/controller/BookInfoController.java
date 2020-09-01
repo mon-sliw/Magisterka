@@ -26,8 +26,8 @@ public class BookInfoController {
         return ResponseEntity.ok(bookService.getAllBooks());
     }
 
-    @PostMapping("/search")
-    public ResponseEntity<?> getBookBySearchString(@RequestBody String searchString) {
+    @GetMapping("/search")
+    public ResponseEntity<?> getBookBySearchString(@RequestParam("string") String searchString) {
         List<Book> booksList = bookService.getBookBySearchString(searchString);
         if (booksList.isEmpty())
             return ResponseEntity.notFound().build();

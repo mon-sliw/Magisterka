@@ -1,7 +1,6 @@
 package pl.mis.magisterka.searchservice.service;
 
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -37,13 +36,12 @@ public class SearchServiceImpl implements SearchService {
 
 
         //get book info
-        HttpEntity<String> request = new HttpEntity<>(searchString);
-        ResponseEntity<Book[]> booksResponse = restTemplate.postForEntity("http://book-info-service/book/search", request, Book[].class);
+        ResponseEntity<Book[]> booksResponse = restTemplate.getForEntity("http://book-info-service/book/search?string=" + searchString, Book[].class);
         List<Book> bookList = Arrays.asList(booksResponse.getBody());
 
         bookList.forEach(book -> book.setRating(ratingsMap.getOrDefault(book.getId(), new Rating()).getRating()));
 
-        return new SearchResponse(user, bookList, searchString);
+        return new SearchResponse(user, searchString, bookList);
     }
 }
 
