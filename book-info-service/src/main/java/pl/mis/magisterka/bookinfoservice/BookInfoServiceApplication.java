@@ -2,13 +2,11 @@ package pl.mis.magisterka.bookinfoservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-import pl.mis.magisterka.bookinfoservice.entity.Book;
 
-@EnableEurekaClient
+@EnableDiscoveryClient
 @SpringBootApplication
 public class BookInfoServiceApplication {
 
@@ -17,7 +15,7 @@ public class BookInfoServiceApplication {
     }
 
     @Bean
-    public RestTemplate getRestTemplate(){
+    public RestTemplate getRestTemplate() {
         return new RestTemplate();
     }
 }
