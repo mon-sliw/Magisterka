@@ -26,21 +26,16 @@ public class SearchServiceImpl implements SearchService {
 
         //get user info
         User user = restTemplate.getForObject("http://user-service/user/" + userId, User.class);
-
         //get ratings list
-
-        ResponseEntity<Rating[]> ratingResponse = restTemplate.getForEntity("http://ratings-service/rating/user-id/" + userId, Rating[].class);
-
+        ResponseEntity<Rating[]> ratingResponse =
+                restTemplate.getForEntity("http://ratings-service/rating/user-id/" + userId, Rating[].class);
         Map<Long, Rating> ratingsMap = Arrays.stream(ratingResponse.getBody())
                 .collect(Collectors.toMap(Rating::getBookId, Function.identity()));
-
-
         //get book info
-        ResponseEntity<Book[]> booksResponse = restTemplate.getForEntity("http://book-info-service/book/search?string=" + searchString, Book[].class);
+        ResponseEntity<Book[]> booksResponse = restTemplate
+                .getForEntity("http://book-info-service/book/search?string=" + searchString, Book[].class);
         List<Book> bookList = Arrays.asList(booksResponse.getBody());
-
         bookList.forEach(book -> book.setRating(ratingsMap.getOrDefault(book.getId(), new Rating()).getRating()));
-
         return new SearchResponse(user, searchString, bookList);
     }
 }
