@@ -19,15 +19,15 @@ public class TestingData {
         failedResponses = 0;
     }
 
-    public void addTime(long t) {
+    synchronized void addTime(long t) {
         times.add(t);
     }
 
-    public void addSuccessfulResponse() {
+    synchronized void addSuccessfulResponse() {
         successfulResponses++;
     }
 
-    public void addFailedResponse() {
+    synchronized void addFailedResponse() {
         failedResponses++;
     }
 
@@ -52,13 +52,19 @@ public class TestingData {
     public void saveToCSV() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
         LocalDateTime now = LocalDateTime.now();
-        String pathname = "eureka-" + dtf.format(now) + ".csv";
+        String pathname = "eureka-jeden-" + dtf.format(now) + ".csv";
         File file = new File(pathname);
-        try (PrintWriter pw = new PrintWriter(file)){
+        try (PrintWriter pw = new PrintWriter(file)) {
             times.forEach(pw::println);
             System.out.println("saved to csv");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public void reset() {
+        times.clear();
+        successfulResponses = 0;
+        failedResponses = 0;
     }
 }
